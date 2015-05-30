@@ -7,7 +7,7 @@ $app->get('/', 'home');
 $app->get('/api', 'home');	
 $app->get('/api/amenity/{amenity}', 'findAmenities'); // curl -i -X GET http://localhost/MongoDBBlog/api/api/id/50ab0f8bbcf1bfe2536dc3f8
 $app->get('/api/bar/{bar}', 'findBar'); // curl -i -X GET http://localhost/MongoDBBlog/api/api/tag/trade
-$app->get('cc', 'findAmenities100MetersNear'); // curl -i -X POST -d '{"body":"Lore ipsum", "permalink": "TqoHkbHyUgLyCKWgPLqm", "author": "machine", "title": "Lore ipsum", "tags": ["Lore", "ipsum"], "comments":[{"body": "Lore ipsum", "email": "john@doe.com", "author": "John Doe"}]}' http://localhost/MongoDBBlog/api/api
+$app->get('/api/amenity/{amenity}/lat/{lat}/lon/{lon}', 'findAmenities100MetersNear'); // curl -i -X POST -d '{"body":"Lore ipsum", "permalink": "TqoHkbHyUgLyCKWgPLqm", "author": "machine", "title": "Lore ipsum", "tags": ["Lore", "ipsum"], "comments":[{"body": "Lore ipsum", "email": "john@doe.com", "author": "John Doe"}]}' http://localhost/MongoDBBlog/api/api
 $app->notFound('notFound');
 
 // Handlers
