@@ -55,6 +55,7 @@ function initialize(lat, lon) {
           <ul class="nav nav-pills pull-right">
             <li role="presentation"><a href="index.php">Home</a></li>
             <li role="presentation" class="active"><a href="buscar.php">Buscar</a></li>
+            <li role="presentation"><a href="api/index.php">API</a></li>
           </ul>
         </nav>
         <h3 class="text-muted">Amenity Helper</h3>

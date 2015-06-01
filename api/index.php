@@ -26,6 +26,8 @@ function home() {
 	echo '<tr><td>GET</td><td>/api/amenity/{amenity}/lat/{lat}/lon/{lon}</td><td>Devuelve los nodos del tipo de <i>amenity</i> proporcionado que están a menos de 100 metros de la latitud y longitud proporcionadas</td><td>curl -i -X GET http://localhost/OSM_REST/api/api/amenity/bar/lat/36.8388993/lon/-2.464748</td></tr>';
 	echo '</table>';
 
+	echo '<a href = "../index.php">Volver a index</a>';
+
 }
 
 //Searches for amenities (i.e. bar, restaurant)
