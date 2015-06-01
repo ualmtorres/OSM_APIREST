@@ -66,7 +66,7 @@ function initialize(lat, lon) {
         <p class="lead">
         <form method = 'post' action = ''>
             <label for = 'bar'>Bar: </label>
-            <input type = 'text' name = 'bar' id = 'bar' placeholder= 'p.e. Campanilla'>
+            <input type = 'text' name = 'bar' id = 'bar' placeholder= 'p.e. Campanilla, Cuore'>
             <input type = 'submit'>
         </form>
         </p>
@@ -78,9 +78,9 @@ function initialize(lat, lon) {
             if (isset($_POST['bar'])) {
               $bar = $_POST['bar'];
               $url = 'http://localhost/OSM_REST/api/api/bar/' . $bar;
+
               $obj = json_decode(file_get_contents($url));
 
-              
               $location['lat'] = $obj->{'Bars'}->{'bar'}->{'node'}->{'@attributes'}->{'lat'};
               $location['lon'] = $obj->{'Bars'}->{'bar'}->{'node'}->{'@attributes'}->{'lon'};
               $location['barName'] = $obj->{'Bars'}->{'bar'}->{'node'}->{'tag'}[1]->{'@attributes'}->{'v'};

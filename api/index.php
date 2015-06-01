@@ -56,7 +56,7 @@ print XMLToJSON::Parse($fullurl);
 
 }
 
-//Adds a new post
+//Searches for amenities that are 100 meters near from the (lat, lon) specified
 function findAmenities100MetersNear($amenity, $lat, $lon) {
 
 include ('../XMLToJSON.php');
@@ -66,7 +66,7 @@ $fullurl = 'http://localhost:8080/exist/rest/db/osm?_query=%3CBars%3E%20{%20for%
 print XMLToJSON::Parse($fullurl);
 }
 
-//Updates values from its key
+//Uses a XQ function
 function llamadaXQ() {
 	$fullurl = 'http://localhost:8080/exist/rest/db/apps/osm/saludar.xq';
 
@@ -87,19 +87,6 @@ curl_close($ch);
 function dameREST() {
 
 
-$fullurl = 'http://localhost:8080/exist/rest/db/osm?_query=restame:dameREST()';
-
-	$ch = curl_init();
-
-// Establecer URL y otras opciones apropiadas
-curl_setopt($ch, CURLOPT_URL, $fullurl);
-curl_setopt($ch, CURLOPT_HEADER, 0);
-
-// Capturar la URL y pasarla al navegador
-curl_exec($ch);
-
-// Cerrar el recurso cURL y liberar recursos del sistema
-curl_close($ch);
 }
 
 function notFound() {
