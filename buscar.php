@@ -61,34 +61,34 @@ function initialize(lat, lon) {
         <h3 class="text-muted">Amenity Helper</h3>
       </div>
 
-		<?php
-		$url = 'http://localhost/OSM_REST/api/api/bar/Cuore';
-		$obj = json_decode(file_get_contents($url));
-
-		
-		$location['lat'] = $obj->{'Bars'}->{'bar'}->{'node'}->{'@attributes'}->{'lat'};
-		$location['lon'] = $obj->{'Bars'}->{'bar'}->{'node'}->{'@attributes'}->{'lon'};
-		$location['barName'] = $obj->{'Bars'}->{'bar'}->{'node'}->{'tag'}[1]->{'@attributes'}->{'v'};
-
-
-		
-		
-		?>
-
-
       <div class="jumbotron">
-        <h1>Búsqueda de lugar</h1>
+        <h1>Búsqueda de Bares por nombre</h1>
         <p class="lead">
         	<?php 
-        		echo "<h2>" . $location['barName'] .'</h2>'; 
-        		echo "<h3>GPS: (" . $location['lat'] . ", " . $location['lon'] .')</h3>';
+            if (isset($_POST['bar'])) {
+              $bar = $_POST['bar'];
+              $url = 'http://localhost/OSM_REST/api/api/bar/' . $bar;
+              $obj = json_decode(file_get_contents($url));
+
+              
+              $location['lat'] = $obj->{'Bars'}->{'bar'}->{'node'}->{'@attributes'}->{'lat'};
+              $location['lon'] = $obj->{'Bars'}->{'bar'}->{'node'}->{'@attributes'}->{'lon'};
+              $location['barName'] = $obj->{'Bars'}->{'bar'}->{'node'}->{'tag'}[1]->{'@attributes'}->{'v'};
+
+              echo "<h2>" . $location['barName'] .'</h2>'; 
+              echo "<h3>GPS: (" . $location['lat'] . ", " . $location['lon'] .')</h3>';
+            }
     		?>
         </p>
       </div>
 
       <div class="row marketing">
         <div class="col-lg-6">
-
+          <form method = 'post' action = ''>
+            <label for = 'bar'>Bar: </label>
+            <input type = 'text' name = 'bar' id = 'bar' placeholder= 'p.e. Campanilla'>
+            <input type = 'submit'>
+          </form>
         </div>
       </div>
 
