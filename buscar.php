@@ -54,7 +54,7 @@ function initialize(lat, lon) {
         <nav>
           <ul class="nav nav-pills pull-right">
             <li role="presentation"><a href="index.php">Home</a></li>
-            <li role="presentation" class="active"><a href="buscar.php">Buscar</a></li>
+            <li role="presentation" class="active"><a href="buscar.php">Dónde puedo ir?</a></li>
             <li role="presentation"><a href="api/index.php">API</a></li>
           </ul>
         </nav>
@@ -62,33 +62,48 @@ function initialize(lat, lon) {
       </div>
 
       <div class="jumbotron">
-        <h1>Búsqueda de Bares por nombre</h1>
-        <p class="lead">
-        	<?php 
-            if (isset($_POST['bar'])) {
-              $bar = $_POST['bar'];
-              $url = 'http://localhost/OSM_REST/api/api/bar/' . $bar;
-              $obj = json_decode(file_get_contents($url));
+        <h1>Búsqueda de ocio por amenity</h1>
+        <form method = 'post' action = ''>
+            <label for = 'amenity'>Amenity: </label>
+            <input type = 'text' name = 'amenity' id = 'amenity' placeholder= 'p.e. bar'><br/>
 
-              
-              $location['lat'] = $obj->{'Bars'}->{'bar'}->{'node'}->{'@attributes'}->{'lat'};
-              $location['lon'] = $obj->{'Bars'}->{'bar'}->{'node'}->{'@attributes'}->{'lon'};
-              $location['barName'] = $obj->{'Bars'}->{'bar'}->{'node'}->{'tag'}[1]->{'@attributes'}->{'v'};
+            <label for = 'lat'>Latitud: </label>
+            <input type = 'text' name = 'lat' id = 'lat' value ='36.8388993'><br/>
 
-              echo "<h2>" . $location['barName'] .'</h2>'; 
-              echo "<h3>GPS: (" . $location['lat'] . ", " . $location['lon'] .')</h3>';
-            }
-    		?>
-        </p>
+            <label for = 'lon'>Longitud: </label>
+            <input type = 'text' name = 'lon' id = 'lon' value = '-2.464748'><br/>
+
+            <input type = 'submit'>
+        </form>
       </div>
 
       <div class="row marketing">
         <div class="col-lg-6">
-          <form method = 'post' action = ''>
-            <label for = 'bar'>Bar: </label>
-            <input type = 'text' name = 'bar' id = 'bar' placeholder= 'p.e. Campanilla'>
-            <input type = 'submit'>
-          </form>
+          <?php
+            if (isset($_POST['amenity'])) {
+              $amenity = $_POST['amenity'];
+              $url = 'http://localhost/OSM_REST/api/api/amenity/' . $amenity;
+              $obj = json_decode(file_get_contents($url));
+    
+              $i = 0;
+              foreach ($obj->{'Bars'}->{'bar'} as $bar) {
+              $location['lat'] = $obj->{'Bars'}->{'bar'}[$i]->{'node'}->{'@attributes'}->{'lat'};
+              $location['lon'] = $obj->{'Bars'}->{'bar'}[$i]->{'node'}->{'@attributes'}->{'lon'};
+              $location['barName'] = $obj->{'Bars'}->{'bar'}[$i]->{'node'}->{'tag'}[1]->{'@attributes'}->{'v'};
+
+              $locations[] = $location;
+
+              $i++;
+
+              }
+
+                foreach ($locations as $location) {
+                echo "<h4>" . $location['barName'] .'</h4>';
+                echo "<p>GPS: (" . $location['lat'] . ", " . $location['lon'] .')</p>';  
+              }
+
+            }
+          ?>
         </div>
       </div>
 

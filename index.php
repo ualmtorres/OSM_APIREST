@@ -54,7 +54,7 @@ function initialize(lat, lon) {
         <nav>
           <ul class="nav nav-pills pull-right">
             <li role="presentation" class="active"><a href="index.php">Home</a></li>
-            <li role="presentation"><a href="buscar.php">Buscar</a></li>
+            <li role="presentation"><a href="buscar.php">Dónde puedo ir?</a></li>
             <li role="presentation"><a href="api/index.php">API</a></li>
           </ul>
         </nav>
@@ -62,43 +62,34 @@ function initialize(lat, lon) {
       </div>
 
       <div class="jumbotron">
-        <h1>Disfruta de Almeria</h1>
-        <p class="lead">Usa tus coordenadas GPS y te daremos los mejores lugares en 100 metros a la redonda.</p>
-        <p><a class="btn btn-lg btn-success" href="#" role="button">Find</a></p>
+        <h1>Búsqueda de Bares por nombre</h1>
+        <p class="lead">
+        <form method = 'post' action = ''>
+            <label for = 'bar'>Bar: </label>
+            <input type = 'text' name = 'bar' id = 'bar' placeholder= 'p.e. Campanilla'>
+            <input type = 'submit'>
+        </form>
+        </p>
       </div>
 
       <div class="row marketing">
-        <div class="col-lg-6">
-			<?php
-			$url = 'http://localhost/OSM_REST/api/api/amenity/bar';
-			$obj = json_decode(file_get_contents($url));
+        <div class="col-lg-12">
+        	<?php 
+            if (isset($_POST['bar'])) {
+              $bar = $_POST['bar'];
+              $url = 'http://localhost/OSM_REST/api/api/bar/' . $bar;
+              $obj = json_decode(file_get_contents($url));
 
-			$i = 0;
-			foreach ($obj->{'Bars'}->{'bar'} as $bar) {
-			$location['lat'] = $obj->{'Bars'}->{'bar'}[$i]->{'node'}->{'@attributes'}->{'lat'};
-			$location['lon'] = $obj->{'Bars'}->{'bar'}[$i]->{'node'}->{'@attributes'}->{'lon'};
-			$location['barName'] = $obj->{'Bars'}->{'bar'}[$i]->{'node'}->{'tag'}[1]->{'@attributes'}->{'v'};
+              
+              $location['lat'] = $obj->{'Bars'}->{'bar'}->{'node'}->{'@attributes'}->{'lat'};
+              $location['lon'] = $obj->{'Bars'}->{'bar'}->{'node'}->{'@attributes'}->{'lon'};
+              $location['barName'] = $obj->{'Bars'}->{'bar'}->{'node'}->{'tag'}[1]->{'@attributes'}->{'v'};
 
-			$locations[] = $location;
+              echo "<h2>" . $location['barName'] .'</h2>'; 
+              echo "<h3>GPS: (" . $location['lat'] . ", " . $location['lon'] .')</h3>';
+            }
+    		?>
 
-			$i++;
-
-			}
-
-			
-			foreach ($locations as $location) {
-				echo "<h4>" . $location['barName'] .'</h4>';
-				echo "<p>GPS: (" . $location['lat'] . ", " . $location['lon'] .')</p>';
-			
-			}
-
-			/*
-			echo '<script type="text/javascript">
-			 initialize('. $locations[0]["lat"] . ',' . $locations[0]["lon"] . ');
-			</script>';
-			*/
-
-			?>
         </div>
       </div>
 
