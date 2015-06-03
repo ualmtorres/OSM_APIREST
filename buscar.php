@@ -71,17 +71,24 @@
 
       <div class="jumbotron">
         <h1>Ocio cercano</h1>
+        <div class = "form-group">
+          <div class="input-group">
+            <span class="input-group-addon">Amenity</span>
+            <input type = 'text' name = 'amenity' id = 'amenity' placeholder= 'p.e. bar' class="form-control" >
+          </div>
 
-            <label for = 'amenity'>Amenity: </label>
-            <input type = 'text' name = 'amenity' id = 'amenity' placeholder= 'p.e. bar'><br/>
+          <div class="input-group">
+            <span class="input-group-addon">Latitud</span>
+            <input type = 'text' name = 'lat' id = 'lat' value ='36.8388993' class="form-control" >
+          </div>
 
-            <label for = 'lat'>Latitud: </label>
-            <input type = 'text' name = 'lat' id = 'lat' value ='36.8388993'>
+          <div class="input-group">
+            <span class="input-group-addon">Longitud</span>
+            <input type = 'text' name = 'lon' id = 'lon' value = '-2.464748' class="form-control" >
+          </div>
+        </div>
 
-            <label for = 'lon'>Longitud: </label>
-            <input type = 'text' name = 'lon' id = 'lon' value = '-2.464748'><br/>
-
-            <input type = "button" value = "Buscar" id = "btnAjax" onclick = "procesar();"/>
+        <button type = "button" value = "Buscar" id = "btnAjax" onclick = "procesar();" class="btn btn-lg btn-success"/>Buscar</button>
       </div>
 
       <div class="row marketing">

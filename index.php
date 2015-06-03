@@ -53,9 +53,14 @@
 
       <div class="jumbotron">
         <h1>Búsqueda de Bares</h1>
-            <label for = 'bar'>Bar: </label>
-            <input type = 'text' name = 'bar' id = 'bar' placeholder= 'p.e. Campanilla, Cuore'>
-            <input type = "button" value = "Buscar" id = "btnAjax" onclick = "procesar();"/>            
+        <div class = "form-group">
+          <div class="input-group">
+              <span class="input-group-addon">Bar</span>
+              <input type = 'text' name = 'bar' id = 'bar' placeholder= 'p.e. Campanilla, Cuore' class="form-control" >            
+          </div>
+        </div>
+        
+        <button  id = "btnAjax" onclick = "procesar();" class="btn btn-lg btn-success"/>Buscar</button>
       </div>
 
       <div class="row marketing">
