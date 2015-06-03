@@ -1,6 +1,61 @@
 <?php
+  include('connection.php');
   include('header.php');
 ?>
+<script language="JavaScript" type="text/javascript">
+  function procesar(){
+      var url = <?php echo "'" . $urlAPIREST . "'"; ?> + 'OSM_REST/api/api/amenity/' + $('#amenity').val() + 
+                '/lat/' + $('#lat').val() + /lon/ + $('#lon').val();
+
+      $.ajax({
+        url: url,
+        type: 'GET',
+        success: actualizar
+      })
+      function actualizar(datos){
+        var amenities = [];
+        var i = 0;
+
+        $(datos).find("node").each(function(){
+          var amenity = [];
+
+          amenity['lat'] = $(this).attr('lat');
+          amenity['lon'] = $(this).attr('lon');
+          amenity['bar'] = $(this).find("tag[k='name']").attr('v');
+
+          amenities[i] = amenity;
+
+          i++;
+        })
+
+        drawMap(amenities);
+
+      }
+  }
+
+  function drawMap(amenities) {
+        var map = L.map('map').setView([$('#lat').val(), $('#lon').val()], 17);
+
+    L.tileLayer('https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+      attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+        '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+        'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+      id: 'examples.map-i875mjb7'
+    }).addTo(map);
+
+    for (i = 0; i < amenities.length; i++) {
+    L.marker([amenities[i]['lat'], amenities[i]['lon']]).addTo(map)
+      .bindPopup(amenities[i]['bar'] + '<br/>(' + amenities[i]['lat'] + ', ' + amenities[i]['lon'] + ')').openPopup();      
+    }
+
+    L.circle([$('#lat').val(), $('#lon').val()], 100, {
+      color: 'red',
+      fillColor: '#f03',
+      fillOpacity: 0.5
+    }).addTo(map)
+  }
+</script>
 
     <div class="container">
       <div class="header clearfix">
@@ -15,48 +70,25 @@
       </div>
 
       <div class="jumbotron">
-        <h1>Búsqueda de ocio por amenity</h1>
-        <form method = 'post' action = ''>
+        <h1>Ocio cercano</h1>
+
             <label for = 'amenity'>Amenity: </label>
             <input type = 'text' name = 'amenity' id = 'amenity' placeholder= 'p.e. bar'><br/>
 
             <label for = 'lat'>Latitud: </label>
-            <input type = 'text' name = 'lat' id = 'lat' value ='36.8388993'><br/>
+            <input type = 'text' name = 'lat' id = 'lat' value ='36.8388993'>
 
             <label for = 'lon'>Longitud: </label>
             <input type = 'text' name = 'lon' id = 'lon' value = '-2.464748'><br/>
 
-            <input type = 'submit'>
-        </form>
+            <input type = "button" value = "Buscar" id = "btnAjax" onclick = "procesar();"/>
       </div>
 
       <div class="row marketing">
         <div class="col-lg-6">
-          <?php
-            if (isset($_POST['amenity'])) {
-              $amenity = $_POST['amenity'];
-              $url = 'http://localhost/OSM_REST/api/api/amenity/' . $amenity;
-              $obj = json_decode(file_get_contents($url));
-    
-              $i = 0;
-              foreach ($obj->{'Bars'}->{'bar'} as $bar) {
-              $location['lat'] = $obj->{'Bars'}->{'bar'}[$i]->{'node'}->{'@attributes'}->{'lat'};
-              $location['lon'] = $obj->{'Bars'}->{'bar'}[$i]->{'node'}->{'@attributes'}->{'lon'};
-              $location['barName'] = $obj->{'Bars'}->{'bar'}[$i]->{'node'}->{'tag'}[1]->{'@attributes'}->{'v'};
+          <div id = 'datos'></div>
+          <div id="map" style="width: 600px; height: 400px"></div>
 
-              $locations[] = $location;
-
-              $i++;
-
-              }
-
-                foreach ($locations as $location) {
-                echo "<h4>" . $location['barName'] .'</h4>';
-                echo "<p>GPS: (" . $location['lat'] . ", " . $location['lon'] .')</p>';  
-              }
-
-            }
-          ?>
         </div>
       </div>
 

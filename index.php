@@ -1,6 +1,43 @@
 <?php
+  include('connection.php');
   include('header.php');
 ?>
+<script language="JavaScript" type="text/javascript">
+  function procesar(){
+      var url = <?php echo "'" . $urlAPIREST . "'"; ?> +  'OSM_REST/api/api/bar/' + $('#bar').val();
+      $.ajax({
+        url: url,
+        type: 'GET',
+        success: actualizar
+      })
+      function actualizar(datos){
+
+        $(datos).find("node").each(function(){
+          var lat = $(this).attr('lat');
+          var lon = $(this).attr('lon');
+          var bar = $(this).find("tag[k='name']").attr('v');
+          drawMap(bar, lat, lon);
+
+      })
+    }
+  }
+
+  function drawMap(bar, lat, lon) {
+        var map = L.map('map').setView([lat, lon], 17);
+
+    L.tileLayer('https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+      attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+        '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+        'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+      id: 'examples.map-i875mjb7'
+    }).addTo(map);
+
+
+    L.marker([lat, lon]).addTo(map)
+      .bindPopup(bar + '<br/>(' + lat + ', ' + lon + ')').openPopup();
+  }
+</script>
 
     <div class="container">
       <div class="header clearfix">
@@ -15,34 +52,16 @@
       </div>
 
       <div class="jumbotron">
-        <h1>Búsqueda de Bares por nombre</h1>
-        <p class="lead">
-        <form method = 'post' action = ''>
+        <h1>Búsqueda de Bares</h1>
             <label for = 'bar'>Bar: </label>
             <input type = 'text' name = 'bar' id = 'bar' placeholder= 'p.e. Campanilla, Cuore'>
-            <input type = 'submit'>
-        </form>
-        </p>
+            <input type = "button" value = "Buscar" id = "btnAjax" onclick = "procesar();"/>            
       </div>
 
       <div class="row marketing">
         <div class="col-lg-12">
-        	<?php 
-            if (isset($_POST['bar'])) {
-              $bar = $_POST['bar'];
-              $url = 'http://localhost/OSM_REST/api/api/bar/' . $bar;
-
-              $obj = json_decode(file_get_contents($url));
-
-              $location['lat'] = $obj->{'Bars'}->{'bar'}->{'node'}->{'@attributes'}->{'lat'};
-              $location['lon'] = $obj->{'Bars'}->{'bar'}->{'node'}->{'@attributes'}->{'lon'};
-              $location['barName'] = $obj->{'Bars'}->{'bar'}->{'node'}->{'tag'}[1]->{'@attributes'}->{'v'};
-
-              echo "<h2>" . $location['barName'] .'</h2>'; 
-              echo "<h3>GPS: (" . $location['lat'] . ", " . $location['lon'] .')</h3>';
-            }
-    		?>
-
+          <div id = 'datos'></div>
+          <div id="map" style="width: 600px; height: 400px"></div>
         </div>
       </div>
 
