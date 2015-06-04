@@ -63,6 +63,7 @@
           <ul class="nav nav-pills pull-right">
             <li role="presentation"><a href="index.php">Home</a></li>
             <li role="presentation" class="active"><a href="buscar.php">Dónde puedo ir?</a></li>
+            <li role="presentation"><a href="consultar.php">Consultar</a></li>
             <li role="presentation"><a href="api/index.php">API</a></li>
           </ul>
         </nav>

@@ -108,7 +108,6 @@ base64_encode("$userBaseX:$passwordBaseX")
 
 	$xml = file_get_contents($url, FALSE, $context);
 	$sxe = new SimpleXMLElement($xml);
-
 	Header('Content-type: text/xml');
 	print($sxe->asXML());
 }
