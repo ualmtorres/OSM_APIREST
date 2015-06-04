@@ -3,4 +3,7 @@
 	$database = "osm";
 
 	$urlPrefix = "http://" . $host . "/rest/" . $database . "?";
+
+	$userBaseX = "xxx";
+	$passwordBaseX = "xxx";
 ?>

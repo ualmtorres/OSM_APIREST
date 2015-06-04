@@ -1,4 +1,5 @@
 <?php
+
 // Instantiate the class responsible for implementing a micro application
 $app = new \Phalcon\Mvc\Micro();
 
@@ -36,8 +37,7 @@ function home() {
 //Searches for amenities (i.e. bar, restaurant)
 function findAmenities ($amenity) {
 
-
-include ('../connection.php');
+include("../connection.php");
 
 $fullurl = $urlPrefix . 'query=%3CBars%3E%20{%20for%20$node%20in%20collection(%22osm%22)/osm/node%20where%20$node/tag[@k=%22amenity%22]%20and%20$node/tag[@v=%22' . $amenity . '%22]%20return%20%3Cbar%3E%20{$node}%20%3C/bar%3E%20}%20%3C/Bars%3E';
 
@@ -48,8 +48,7 @@ renderXML($fullurl);
 //Searches for a bar (i.e. Cuore, Campanilla)
 function findBar ($bar) {
 
-
-include ('../connection.php');
+include("../connection.php");
 
 $fullurl = $urlPrefix . 'query=%3CBars%3E%20{%20for%20$node%20in%20collection(%22osm%22)/osm/node%20where%20$node/tag[@k=%22amenity%22]%20and%20$node/tag[@v=%22bar%22]%20and%20$node/tag[@k=%22name%22]%20and%20$node/tag[@v=%22' . $bar . '%22]%20return%20%3Cbar%3E%20{$node[@lat]}%20%3C/bar%3E%20}%20%3C/Bars%3E';
 
@@ -60,7 +59,7 @@ renderXML($fullurl);
 //Searches for amenities that are 100 meters near from the (lat, lon) specified
 function findAmenities100MetersNear($amenity, $lat, $lon) {
 
-include ('../connection.php');
+include("../connection.php");
 
 $fullurl = $urlPrefix . 'query=%3CBars%3E%20{%20for%20$node%20in%20collection(%22osm%22)/osm/node%20where%20$node/tag/@k=%22amenity%22%20and%20$node/tag/@v=%22' . $amenity . '%22%20and%20$node/@lat%20%3E%20' . $lat . '%20-%200.00000898%20*%20100%20and%20$node/@lat%20%3C%20' . $lat . '%20-%20-0.00000898%20*%20100%20and%20$node/@lon%20%3E%20' . $lon . '%20-%200.00000898%20*%20100%20and%20$node/@lon%20%3C%20' . $lon . '%20-%20-0.00000898%20*%20100%20return%20%3Cbar%3E%20{$node}%20%3C/bar%3E%20}%20%3C/Bars%3E';
 
@@ -95,7 +94,19 @@ function notFound() {
 }
 
 function renderXML($url) {
-	$xml = file_get_contents($url);
+include("../connection.php");
+
+ // Create a stream
+ $opts = array(
+ 'http'=>array(
+ 'method' => "GET",
+ 'header' => "Authorization: Basic " .
+base64_encode("$userBaseX:$passwordBaseX")
+ )
+ );
+ $context = stream_context_create($opts); 
+
+	$xml = file_get_contents($url, FALSE, $context);
 	$sxe = new SimpleXMLElement($xml);
 
 	Header('Content-type: text/xml');
