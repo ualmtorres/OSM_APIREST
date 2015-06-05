@@ -1,0 +1,71 @@
+<osm version="0.6" upload="true" generator="JOSM">
+  <way id="-11304" visible="true">
+    <nd ref="-10648"/>
+    <nd ref="-9752"/>
+    <nd ref="-9750"/>
+    <nd ref="-10914"/>
+    <nd ref="-9748"/>
+    <nd ref="-10816"/>
+    <nd ref="-10648"/>
+    <tag k="amenity" v="high school"/>
+    <tag k="building" v="yes"/>
+    <tag k="name" v="IES Alborán"/>
+  </way>
+  <node id="-10648" visible="true" lat="36.8395487" lon="-2.45245"/>
+  <node id="-9752" visible="true" lat="36.838279" lon="-2.4522988"/>
+  <node id="-9750" visible="true" lat="36.8383496" lon="-2.4516099"/>
+  <node id="-10914" visible="true" lat="36.8389716" lon="-2.4517038"/>
+  <node id="-9748" visible="true" lat="36.8389215" lon="-2.4518291"/>
+  <node id="-10816" visible="true" lat="36.8395587" lon="-2.4519199"/>
+  <node id="-10648" visible="true" lat="36.8395487" lon="-2.45245"/>
+  <way id="-11364" visible="true">
+    <nd ref="-11048"/>
+    <nd ref="-10044"/>
+    <nd ref="-10042"/>
+    <nd ref="-10040"/>
+    <nd ref="-10038"/>
+    <nd ref="-10036"/>
+    <nd ref="-10034"/>
+    <nd ref="-10032"/>
+    <nd ref="-10840"/>
+    <nd ref="-10030"/>
+    <nd ref="-11048"/>
+    <tag k="amenity" v="school"/>
+    <tag k="created_by" v="Potlatch 0.10f"/>
+    <tag k="name" v="CPC Divina Infantita"/>
+  </way>
+  <node id="-11048" visible="true" lat="36.8382919" lon="-2.4491153"/>
+  <node id="-10044" visible="true" lat="36.8378934" lon="-2.4490552"/>
+  <node id="-10042" visible="true" lat="36.8379346" lon="-2.4486003"/>
+  <node id="-10040" visible="true" lat="36.8377148" lon="-2.4484973"/>
+  <node id="-10038" visible="true" lat="36.8377629" lon="-2.4483342"/>
+  <node id="-10036" visible="true" lat="36.8377973" lon="-2.4483342"/>
+  <node id="-10034" visible="true" lat="36.8379484" lon="-2.4478621"/>
+  <node id="-10032" visible="true" lat="36.8380102" lon="-2.447742"/>
+  <node id="-10840" visible="true" lat="36.8381064" lon="-2.4476905"/>
+  <node id="-10030" visible="true" lat="36.8384292" lon="-2.4476476"/>
+  <node id="-11048" visible="true" lat="36.8382919" lon="-2.4491153"/>
+  <way id="-11340" action="modify" visible="true">
+    <nd ref="-9876"/>
+    <nd ref="-10966"/>
+    <nd ref="-9874"/>
+    <nd ref="-9872"/>
+    <nd ref="-11106"/>
+    <nd ref="-10682"/>
+    <nd ref="-9870"/>
+    <nd ref="-9868"/>
+    <nd ref="-9876"/>
+    <tag k="amenity" v="school"/>
+    <tag k="building" v="yes"/>
+    <tag k="name" v="Madre de la Luz"/>
+  </way>
+  <node id="-9876" visible="true" lat="36.838004" lon="-2.4533469"/>
+  <node id="-10966" visible="true" lat="36.8379159" lon="-2.4542427"/>
+  <node id="-9874" visible="true" lat="36.8385192" lon="-2.4543585"/>
+  <node id="-9872" visible="true" lat="36.8384977" lon="-2.4545941"/>
+  <node id="-11106" visible="true" lat="36.83862" lon="-2.4546263"/>
+  <node id="-10682" visible="true" lat="36.838751" lon="-2.453548"/>
+  <node id="-9870" visible="true" lat="36.8386136" lon="-2.4535266"/>
+  <node id="-9868" visible="true" lat="36.8386115" lon="-2.4534251"/>
+  <node id="-9876" visible="true" lat="36.838004" lon="-2.4533469"/>
+</osm>
