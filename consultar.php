@@ -40,6 +40,7 @@
             <li role="presentation"><a href="index.php">Home</a></li>
             <li role="presentation"><a href="buscar.php">Dónde puedo ir?</a></li>
             <li role="presentation" class="active"><a href="consultar.php">Consultar</a></li>
+            <li role="presentation"><a href="representar.php">Pintar regiones</a></li>            
             <li role="presentation"><a href="api/index.php">API</a></li>
           </ul>
         </nav>

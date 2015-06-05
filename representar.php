@@ -4,29 +4,26 @@
 ?>
 <script language="JavaScript" type="text/javascript">
   function procesar(){
-      /*var url = <?php echo "'" . $urlAPIREST . "'"; ?> + 'OSM_REST/api/api/amenity/' + $('#amenity').val() + 
-                '/lat/' + $('#lat').val() + /lon/ + $('#lon').val();*/
-      //var url = encodeURI('http://' + <?php echo "'" . $host . "'"; ?> + '/rest?run=' + $('#filename').val());
-      //alert (url);
-
-      var url = 'http://localhost:8012/OSM_REST/osmprueba.xml';
-        var map = L.map('map').setView([36.8395487, -2.45245], 17);
-
-    L.tileLayer('https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {
-      maxZoom: 18,
-      attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
-        '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-        'Imagery © <a href="http://mapbox.com">Mapbox</a>',
-      id: 'examples.map-i875mjb7'
-    }).addTo(map);
-
+      var url = encodeURI('http://' + <?php echo "'" . $host . "'"; ?> + '/rest?run=' + $('#filename').val());
 
       $.ajax({
-        url: url,
+        url: 'ejecutarXQuery.php',
         type: 'GET',
+        data: {url:url},
         success: actualizar
       })
+
       function actualizar(datos){
+
+        var map = L.map('map').setView([36.8395487, -2.45245], 17);
+
+        L.tileLayer('https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {
+          maxZoom: 18,
+          attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+            '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+            'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+          id: 'examples.map-i875mjb7'
+        }).addTo(map);
 
         var pointList = [];
 
@@ -45,18 +42,15 @@
             pointList.push(point);
           })
 
-          var firstpolyline = new L.Polyline(pointList, {
+          var firstpolyline = new L.polygon(pointList, {
             color: 'red',
-            weight: 3,
-            opacity: 0.5,
-            smoothFactor: 1
-
+            opacity: 0.5
           });
 
           firstpolyline.addTo(map);
-      })
-     }
-  }
+        })
+      }
+   }
 </script>
 
     <div class="container">
@@ -64,8 +58,9 @@
         <nav>
           <ul class="nav nav-pills pull-right">
             <li role="presentation"><a href="index.php">Home</a></li>
-            <li role="presentation" class="active"><a href="buscar.php">Dónde puedo ir?</a></li>
+            <li role="presentation"><a href="buscar.php">Dónde puedo ir?</a></li>
             <li role="presentation"><a href="consultar.php">Consultar</a></li>
+            <li role="presentation" class = "active"><a href="representar.php">Pintar regiones</a></li>
             <li role="presentation"><a href="api/index.php">API</a></li>
           </ul>
         </nav>
