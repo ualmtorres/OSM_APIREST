@@ -2,7 +2,45 @@
   include('connection.php');
   include('header.php');
 ?>
+    <div class="container">
+      <?php
+        include("navbar.php"); 
+      ?>
+      <script language="JavaScript" type="text/javascript">
+        $('#renderbtn').addClass("active");
+      </script>
+
+      <div class="jumbotron">
+        <h1>Buscar regiones</h1>
+        <div class = "form-group">
+          <div class="input-group">
+            <span class="input-group-addon">Archivo</span>
+            <input type = 'text' name = 'filename' id = 'filename' placeholder= 'p.e. osmprueba.xq' class="form-control" >
+          </div>
+        </div>
+
+        <button type = "button" value = "Mostrar" id = "btnAjax" onclick = "procesar();" class="btn btn-lg btn-success"/>Mostrar</button>
+      </div>
+
+      <div class="row marketing">
+        <div class="col-lg-6">
+          <div id = 'datos'></div>
+          <div id="map" style="width: 600px; height: 400px"></div>
+
+        </div>
+      </div>
+
+<?php
+  include("tail.php");
+?>
+ 
 <script language="JavaScript" type="text/javascript">
+
+var controls = [];
+
+var map = L.map('map').setView([36.8395487, -2.45245], 17);
+$('#map').hide();
+
   function procesar(){
       var url = encodeURI('http://' + <?php echo "'" . $host . "'"; ?> + '/rest?run=' + $('#filename').val());
 
@@ -15,7 +53,13 @@
 
       function actualizar(datos){
 
-        var map = L.map('map').setView([36.8395487, -2.45245], 17);
+    for (z = 0; z < controls.length; z++) {
+      map.removeLayer(controls[z]);
+    }
+
+    controls = [];
+
+    $('#map').show();
 
         L.tileLayer('https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {
           maxZoom: 18,
@@ -68,43 +112,10 @@
           });
 
           firstpolyline.addTo(map);
+
+          controls.push(firstpolyline);
         })
       }
    }
 </script>
-
-    <div class="container">
-      <?php
-        include("navbar.php"); 
-      ?>
-      <script language="JavaScript" type="text/javascript">
-        $('#renderbtn').addClass("active");
-      </script>
-
-      <div class="jumbotron">
-        <h1>Buscar regiones</h1>
-        <div class = "form-group">
-          <div class="input-group">
-            <span class="input-group-addon">Archivo</span>
-            <input type = 'text' name = 'filename' id = 'filename' placeholder= 'p.e. osmprueba.xq' class="form-control" >
-          </div>
-        </div>
-
-        <button type = "button" value = "Mostrar" id = "btnAjax" onclick = "procesar();" class="btn btn-lg btn-success"/>Mostrar</button>
-      </div>
-
-      <div class="row marketing">
-        <div class="col-lg-6">
-          <div id = 'datos'></div>
-          <div id="map" style="width: 600px; height: 400px"></div>
-
-        </div>
-      </div>
-
-<?php
-  include("tail.php");
-?>
- 
-
-
 
