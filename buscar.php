@@ -28,6 +28,11 @@
             <span class="input-group-addon">Longitud</span>
             <input type = 'text' name = 'lon' id = 'lon' value = '-2.464748' class="form-control" >
           </div>
+
+          <div class="input-group">
+            <span class="input-group-addon">Radio (m)</span>
+            <input type = 'text' name = 'radius' id = 'radius' value = '100' class="form-control" >
+          </div>
         </div>
 
         <button type = "button" value = "Buscar" id = "btnAjax" onclick = "procesar();" class="btn btn-lg btn-success"/>Buscar</button>
@@ -54,7 +59,7 @@ $('#map').hide();
 
   function procesar(){
       var url = <?php echo "'" . $urlAPIREST . "'"; ?> + 'OSM_REST/api/api/amenity/' + $('#amenity').val() + 
-                '/lat/' + $('#lat').val() + /lon/ + $('#lon').val();
+                '/lat/' + $('#lat').val() + '/lon/' + $('#lon').val() + '/radius/' + $('#radius').val();
 
       $.ajax({
         url: url,
@@ -107,7 +112,7 @@ $('#map').hide();
       controls.push(control);
     }
 
-    var control = L.circle([$('#lat').val(), $('#lon').val()], 100, {
+    var control = L.circle([$('#lat').val(), $('#lon').val()], $('#radius').val(), {
       color: 'red',
       fillColor: '#f03',
       fillOpacity: 0.5

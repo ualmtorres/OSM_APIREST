@@ -7,7 +7,9 @@ $app->get('/', 'home');
 $app->get('/api', 'home');	
 $app->get('/api/amenity/{amenity}', 'findAmenities'); // curl -i -X GET http://localhost/MongoDBBlog/api/api/id/50ab0f8bbcf1bfe2536dc3f8
 $app->get('/api/bar/{bar}', 'findBar'); // curl -i -X GET http://localhost/MongoDBBlog/api/api/tag/trade
-$app->get('/api/amenity/{amenity}/lat/{lat}/lon/{lon}', 'findAmenities100MetersNear'); // curl -i -X POST -d '{"body":"Lore ipsum", "permalink": "TqoHkbHyUgLyCKWgPLqm", "author": "machine", "title": "Lore ipsum", "tags": ["Lore", "ipsum"], "comments":[{"body": "Lore ipsum", "email": "john@doe.com", "author": "John Doe"}]}' http://localhost/MongoDBBlog/api/api
+$app->get('/api/amenity/{amenity}/lat/{lat}/lon/{lon}/radius/{radius}', 'findAmenities100MetersNear'); // curl -i -X POST -d '{"body":"Lore ipsum", "permalink": "TqoHkbHyUgLyCKWgPLqm", "author": "machine", "title": "Lore ipsum", "tags": ["Lore", "ipsum"], "comments":[{"body": "Lore ipsum", "email": "john@doe.com", "author": "John Doe"}]}' http://localhost/MongoDBBlog/api/api
+//$app->get('/api/amenity/{amenity}/lat/{lat}/lon/{lon}/radius{radius}', 'findAmenities100MetersNear'); // curl -i -X POST -d '{"body":"Lore ipsum", "permalink": "TqoHkbHyUgLyCKWgPLqm", "author": "machine", "title": "Lore ipsum", "tags": ["Lore", "ipsum"], "comments":[{"body": "Lore ipsum", "email": "john@doe.com", "author": "John Doe"}]}' http://localhost/MongoDBBlog/api/api
+//http://localhost/OSM_REST/api/api/amenity/bar/lat/36.8388993/lon/-2.464748/r/100
 $app->get('/api/llamadaXQ', 'llamadaXQ'); // 
 $app->get('/api/dameREST', 'dameREST'); // 
 $app->notFound('notFound');
@@ -57,12 +59,15 @@ renderXML($fullurl);
 }
 
 //Searches for amenities that are 100 meters near from the (lat, lon) specified
-function findAmenities100MetersNear($amenity, $lat, $lon) {
+//function findAmenities100MetersNear($amenity, $lat, $lon, $radius) {
+//function findAmenities100MetersNear($amenity, $lat, $lon, $radius) {
+function findAmenities100MetersNear($amenity, $lat, $lon, $radius) {
 
 include("../connection.php");
 
-$fullurl = $urlPrefix . 'query=%3CBars%3E%20{%20for%20$node%20in%20collection(%22osm%22)/osm/node%20where%20$node/tag/@k=%22amenity%22%20and%20$node/tag/@v=%22' . $amenity . '%22%20and%20$node/@lat%20%3E%20' . $lat . '%20-%200.00000898%20*%20100%20and%20$node/@lat%20%3C%20' . $lat . '%20-%20-0.00000898%20*%20100%20and%20$node/@lon%20%3E%20' . $lon . '%20-%200.00000898%20*%20100%20and%20$node/@lon%20%3C%20' . $lon . '%20-%20-0.00000898%20*%20100%20return%20%3Cbar%3E%20{$node}%20%3C/bar%3E%20}%20%3C/Bars%3E';
-
+//$fullurl = $urlPrefix . 'query=%3CBars%3E%20{%20for%20$node%20in%20collection(%22osm%22)/osm/node%20where%20$node/tag/@k=%22amenity%22%20and%20$node/tag/@v=%22' . $amenity . '%22%20and%20$node/@lat%20%3E%20' . $lat . '%20-%200.00000898%20*%20100%20and%20$node/@lat%20%3C%20' . $lat . '%20-%20-0.00000898%20*%20100%20and%20$node/@lon%20%3E%20' . $lon . '%20-%200.00000898%20*%20100%20and%20$node/@lon%20%3C%20' . $lon . '%20-%20-0.00000898%20*%20100%20return%20%3Cbar%3E%20{$node}%20%3C/bar%3E%20}%20%3C/Bars%3E';
+$fullurl = $urlPrefix . 'query=%3CBars%3E%20{%20for%20$node%20in%20collection(%22osm%22)/osm/node%20where%20$node/tag/@k=%22amenity%22%20and%20$node/tag/@v=%22' . $amenity . '%22%20and%20$node/@lat%20%3E%20' . $lat . '%20-%200.00000898%20*%20' . $radius . '%20and%20$node/@lat%20%3C%20' . $lat . '%20-%20-0.00000898%20*%20' . $radius . '%20and%20$node/@lon%20%3E%20' . $lon . '%20-%200.00000898%20*%20' . $radius . '%20and%20$node/@lon%20%3C%20' . $lon . '%20-%20-0.00000898%20*%20' . $radius . '%20return%20%3Cbar%3E%20{$node}%20%3C/bar%3E%20}%20%3C/Bars%3E';
+//echo "Hoooola";
 renderXML($fullurl);
 }
 
