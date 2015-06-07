@@ -34,18 +34,12 @@
 </script>
 
     <div class="container">
-      <div class="header clearfix">
-        <nav>
-          <?php
-            include("navbar.php"); 
-          ?>
-          <script language="JavaScript" type="text/javascript">
-            $('#querybtn').addClass("active");
-          </script>
-          </ul>
-        </nav>
-        <h3 class="text-muted">Amenity Helper</h3>
-      </div>
+      <?php
+        include("navbar.php"); 
+      ?>
+      <script language="JavaScript" type="text/javascript">
+        $('#querybtn').addClass("active");
+      </script>
 
       <div class="jumbotron">
         <h1>Shell XQuery</h1>

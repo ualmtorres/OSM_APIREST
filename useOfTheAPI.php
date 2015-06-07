@@ -3,16 +3,12 @@
 ?>
     <div class="container">
       <div class="header clearfix">
-        <nav>
-          <?php
-            include("navbar.php"); 
-          ?>
-          <script language="JavaScript" type="text/javascript">
-            $('#apibtn').addClass("active");
-          </script>
-        </nav>
-        <h3 class="text-muted">Amenity Helper</h3>
-      </div>
+      <?php
+        include("navbar.php"); 
+      ?>
+      <script language="JavaScript" type="text/javascript">
+        $('#apibtn').addClass("active");
+      </script>
 
       <div class="jumbotron">
         <h1>Use of the API</h1>
