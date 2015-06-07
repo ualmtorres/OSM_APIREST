@@ -37,7 +37,9 @@
 
 var controls = [];
 
-var map = L.map('map').setView([36.8386395, -2.4648017], 17);
+//var map = L.map('map').setView([36.8386395, -2.4648017], 17);
+var map = L.map('map').setView([0, 0], 16);
+
 $('#map').hide();
 
   function procesar(){
@@ -66,6 +68,8 @@ $('#map').hide();
     }
 
     controls = [];
+
+    map.panTo([lat, lon]);
 
     $('#map').show();
 

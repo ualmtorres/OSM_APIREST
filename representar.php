@@ -38,7 +38,8 @@
 
 var controls = [];
 
-var map = L.map('map').setView([36.8395487, -2.45245], 17);
+//var map = L.map('map').setView([36.8395487, -2.45245], 17);
+var map = L.map('map').setView([0, 0], 16);
 $('#map').hide();
 
   function procesar(){
@@ -70,6 +71,13 @@ $('#map').hide();
         }).addTo(map);
 
         var pointList = [];
+
+        // Obtener la primera latitud y longitud que aparece para tomarla como centro del mapa
+        var firstNode = $(datos).find("node").first();
+        var firstLat = firstNode.attr("lat");
+        var firstLon = firstNode.attr("lon");
+
+        map.panTo([firstLat, firstLon]);
 
         $(datos).find("way").each(function(){
           pointList = [];

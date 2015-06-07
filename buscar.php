@@ -49,7 +49,7 @@
 
 var controls = [];
 
-var map = L.map('map').setView([$('#lat').val(), $('#lon').val()], 17);
+var map = L.map('map').setView([$('#lat').val(), $('#lon').val()], 16);
 $('#map').hide();
 
   function procesar(){
