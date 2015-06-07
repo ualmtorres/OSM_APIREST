@@ -30,6 +30,26 @@
         $(datos).find("way").each(function(){
           pointList = [];
 
+          var tags = [];
+          var color = "";
+
+          $(this).find("tag").each(function(){
+            tags.push($(this).attr('k'));
+          })
+          
+          if ($.inArray("amenity", tags) >= 0) {
+            color = "red";
+            console.log("rojo");
+          }
+          if ($.inArray("highway", tags) >= 0) {
+            color = "blue";
+            console.log("azul");
+          }
+
+          console.log("Vuelta");
+          for (z=0; z<tags.length; z++) console.log(tags[z]);
+
+
           $(this).find("nd").each(function(){
 
             var ref = $(this).attr('ref');
@@ -43,7 +63,7 @@
           })
 
           var firstpolyline = new L.polygon(pointList, {
-            color: 'red',
+            color: color,
             opacity: 0.5
           });
 
@@ -56,13 +76,12 @@
     <div class="container">
       <div class="header clearfix">
         <nav>
-          <ul class="nav nav-pills pull-right">
-            <li role="presentation"><a href="index.php">Home</a></li>
-            <li role="presentation"><a href="buscar.php">Dónde puedo ir?</a></li>
-            <li role="presentation"><a href="consultar.php">Consultar</a></li>
-            <li role="presentation" class = "active"><a href="representar.php">Pintar regiones</a></li>
-            <li role="presentation"><a href="api/index.php">API</a></li>
-          </ul>
+          <?php
+            include("navbar.php"); 
+          ?>
+          <script language="JavaScript" type="text/javascript">
+            $('#renderbtn').addClass("active");
+          </script>
         </nav>
         <h3 class="text-muted">Amenity Helper</h3>
       </div>

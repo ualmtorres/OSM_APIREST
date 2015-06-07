@@ -60,13 +60,12 @@
     <div class="container">
       <div class="header clearfix">
         <nav>
-          <ul class="nav nav-pills pull-right">
-            <li role="presentation"><a href="index.php">Home</a></li>
-            <li role="presentation" class="active"><a href="buscar.php">Dónde puedo ir?</a></li>
-            <li role="presentation"><a href="consultar.php">Consultar</a></li>
-            <li role="presentation"><a href="representar.php">Pintar regiones</a></li>            
-            <li role="presentation"><a href="api/index.php">API</a></li>
-          </ul>
+          <?php
+            include("navbar.php"); 
+          ?>
+          <script language="JavaScript" type="text/javascript">
+            $('#whereToGobtn').addClass("active");
+          </script>
         </nav>
         <h3 class="text-muted">Amenity Helper</h3>
       </div>

@@ -1,5 +1,4 @@
 <?php
-
 // Instantiate the class responsible for implementing a micro application
 $app = new \Phalcon\Mvc\Micro();
 
@@ -17,7 +16,8 @@ $app->notFound('notFound');
 
 // Show the use of the API
 function home() {
-
+	header('Location:../useOfTheAPI.php');
+/*
 	// Describe the use of this API
 
 	echo "<h1>Use of the API</h1>";
@@ -31,7 +31,7 @@ function home() {
 	echo '</table>';
 
 	echo '<a href = "../index.php">Volver a index</a>';
-
+*/
 }
 
 //Searches for amenities (i.e. bar, restaurant)
