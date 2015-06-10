@@ -5,6 +5,7 @@
             <li role="presentation" id = "whereToGobtn"><a href="buscar.php">Dónde puedo ir?</a></li>
             <li role="presentation" id = "querybtn"><a href="consultar.php">Consultar</a></li>
             <li role="presentation" id = "renderbtn"><a href="representar.php">Pintar regiones</a></li>            
+            <li role="presentation" id = "downloadbtn"><a href="download.php">Descargar mapa</a></li>            
             <li role="presentation" id = "apibtn"><a href="api/index.php">API</a></li>
           </ul>
         </nav>
